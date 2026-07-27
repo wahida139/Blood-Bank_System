@@ -826,3 +826,157 @@ footer hr{
     }
 
 }
+
+/* ==========================================
+   LOGIN PAGE
+========================================== */
+
+.login-container{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#f5f7fa;
+
+}
+
+.login-card{
+
+    width:420px;
+
+    background:#ffffff;
+
+    padding:40px;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+}
+
+.login-card h1{
+
+    text-align:center;
+
+    color:#c1121f;
+
+    margin-bottom:10px;
+
+}
+
+.login-card h2{
+
+    text-align:center;
+
+    margin-bottom:8px;
+
+}
+
+.login-card p{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+.form-group{
+
+    margin-bottom:18px;
+
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.form-group input{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+    font-size:16px;
+
+}
+
+.form-group input:focus{
+
+    outline:none;
+
+    border-color:#c1121f;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#c1121f;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:6px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#9d0208;
+
+}
+
+.error{
+
+    color:red;
+
+    font-size:14px;
+
+}
+
+.bottom-text{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+.bottom-text a{
+
+    color:#c1121f;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
