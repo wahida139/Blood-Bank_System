@@ -133,7 +133,7 @@ const statsContainer = document.createElement("div");
 statsContainer.className =
 "grid grid-cols-1 md:grid-cols-3 gap-6 mt-10";
 
-/
+
 
 statistics.forEach(function(stat){
 
