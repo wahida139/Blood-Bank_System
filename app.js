@@ -3,10 +3,15 @@
 // ==========================================
 
 const app = document.getElementById("app");
+
+
 const successMessage = document.getElementById("successMessage");
 
 // ==========================================
 // CREATE REGISTRATION FORM
+
+// ==========================================
+// RENDER DONOR REGISTRATION FORM
 // ==========================================
 
 app.innerHTML = `
@@ -14,6 +19,16 @@ app.innerHTML = `
 <div class="bg-white shadow-xl rounded-xl p-8">
 
     
+<div class="bg-white shadow-lg rounded-xl p-8 mt-10">
+
+    <h1 class="text-4xl font-bold text-center text-red-700 mb-2">
+        Blood Donor Registration
+    </h1>
+
+    <p class="text-center text-gray-500 mb-8">
+        Please fill in your information to become a voluntary blood donor.
+    </p>
+
     <form id="donorForm" class="space-y-6">
 
         <!-- Full Name -->
