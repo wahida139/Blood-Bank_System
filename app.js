@@ -4,12 +4,21 @@
 
 const app = document.getElementById("app");
 
+
+const successMessage = document.getElementById("successMessage");
+
+// ==========================================
+// CREATE REGISTRATION FORM
+
 // ==========================================
 // RENDER DONOR REGISTRATION FORM
 // ==========================================
 
 app.innerHTML = `
 
+<div class="bg-white shadow-xl rounded-xl p-8">
+
+    
 <div class="bg-white shadow-lg rounded-xl p-8 mt-10">
 
     <h1 class="text-4xl font-bold text-center text-red-700 mb-2">
@@ -33,10 +42,14 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="name"
+
                 type="text"
+
                 placeholder="Enter your full name"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
         </div>
 
@@ -51,13 +64,19 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="email"
+
                 type="email"
+
                 placeholder="example@gmail.com"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
             <p
+
                 id="emailMessage"
+
                 class="text-sm mt-2">
 
             </p>
@@ -75,14 +94,20 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="phone"
+
                 type="text"
+
                 placeholder="01XXXXXXXXX"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
             <p
+
                 id="phoneError"
-                class="text-sm mt-2 text-red-600">
+
+                class="text-sm text-red-600 mt-2">
 
             </p>
 
@@ -99,8 +124,10 @@ app.innerHTML = `
             </label>
 
             <select
+
                 id="bloodGroup"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                class="w-full border rounded-lg p-3">
 
                 <option value="">
 
@@ -132,10 +159,14 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="location"
+
                 type="text"
+
                 placeholder="Enter your city"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
         </div>
 
@@ -150,13 +181,19 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="password"
+
                 type="password"
-                placeholder="Create a strong password"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                placeholder="Create Password"
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
             <p
+
                 id="passwordMessage"
+
                 class="text-sm mt-2">
 
             </p>
@@ -174,24 +211,30 @@ app.innerHTML = `
             </label>
 
             <input
+
                 id="confirmPassword"
+
                 type="password"
-                placeholder="Re-enter your password"
-                class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+                placeholder="Confirm Password"
+
+                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-red-500">
 
             <p
+
                 id="confirmMessage"
+
                 class="text-sm mt-2">
 
             </p>
 
         </div>
 
-        <!-- Submit Button -->
-
         <button
+
             type="submit"
-            class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg text-lg font-semibold transition">
+
+            class="w-full bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg text-lg font-semibold transition">
 
             Register Now
 
@@ -203,7 +246,7 @@ app.innerHTML = `
 
 `;
 // ==========================================
-// DOM SELECTION
+// DOM ELEMENTS
 // ==========================================
 
 const donorForm = document.getElementById("donorForm");
@@ -234,13 +277,13 @@ const confirmMessage = document.getElementById("confirmMessage");
 // HELPER FUNCTIONS
 // ==========================================
 
-function showError(message){
+function showError(message) {
 
     alert(message);
 
 }
 
-function showSuccess(message){
+function showSuccess(message) {
 
     alert(message);
 
@@ -250,28 +293,25 @@ function showSuccess(message){
 // EMAIL VALIDATION
 // ==========================================
 
-donorEmail.addEventListener("input", function(){
+donorEmail.addEventListener("input", function () {
 
-    const emailPattern =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(emailPattern.test(donorEmail.value)){
+    if (emailPattern.test(donorEmail.value)) {
 
-        emailMessage.textContent =
-        "✓ Valid Email Address";
+        emailMessage.textContent = "✓ Valid Email Address";
 
         emailMessage.className =
-        "text-green-600 text-sm mt-2";
+            "text-green-600 text-sm mt-2";
 
     }
 
-    else{
+    else {
 
-        emailMessage.textContent =
-        "✗ Invalid Email Address";
+        emailMessage.textContent = "✗ Invalid Email Address";
 
         emailMessage.className =
-        "text-red-600 text-sm mt-2";
+            "text-red-600 text-sm mt-2";
 
     }
 
@@ -281,118 +321,101 @@ donorEmail.addEventListener("input", function(){
 // PHONE VALIDATION
 // ==========================================
 
-donorPhone.addEventListener("input", function(){
+donorPhone.addEventListener("input", function () {
 
-    const phonePattern =
-    /^01[3-9]\d{8}$/;
+    const phonePattern = /^01[3-9]\d{8}$/;
 
-    if(phonePattern.test(donorPhone.value)){
+    if (phonePattern.test(donorPhone.value)) {
 
-        phoneError.textContent =
-        "";
+        phoneError.textContent = "";
 
     }
 
-    else{
+    else {
 
         phoneError.textContent =
-        "Enter a valid Bangladeshi phone number.";
+            "Enter a valid Bangladeshi phone number.";
 
     }
 
 });
 
 // ==========================================
-// STRONG PASSWORD VALIDATION
+// PASSWORD STRENGTH
 // ==========================================
 
-password.addEventListener("input", function(){
+password.addEventListener("input", function () {
 
     const value = password.value;
 
-    const hasUppercase =
-    /[A-Z]/.test(value);
+    const hasUpper = /[A-Z]/.test(value);
 
-    const hasLowercase =
-    /[a-z]/.test(value);
+    const hasLower = /[a-z]/.test(value);
 
-    const hasNumber =
-    /[0-9]/.test(value);
+    const hasNumber = /\d/.test(value);
 
-    const hasSpecial =
-    /[@$!%*?&#]/.test(value);
+    const hasSpecial = /[@$!%*?&#]/.test(value);
 
-    if(
+    if (
 
         value.length >= 8 &&
 
-        hasUppercase &&
+        hasUpper &&
 
-        hasLowercase &&
+        hasLower &&
 
         hasNumber &&
 
         hasSpecial
 
-    ){
+    ) {
 
         passwordMessage.textContent =
-        "✓ Strong Password";
+            "✓ Strong Password";
 
         passwordMessage.className =
-        "text-green-600 text-sm mt-2";
+            "text-green-600 text-sm mt-2";
 
     }
 
-    else if(
+    else if (
 
         value.length >= 6 &&
 
-        hasUppercase &&
+        hasUpper &&
 
-        hasLowercase &&
+        hasLower &&
 
         hasNumber
 
-    ){
+    ) {
 
         passwordMessage.textContent =
-        "Medium Password";
+            "Medium Password";
 
         passwordMessage.className =
-        "text-yellow-600 text-sm mt-2";
+            "text-yellow-600 text-sm mt-2";
 
     }
 
-    else{
+    else {
 
-        passwordMessage.innerHTML =
+        passwordMessage.innerHTML = `
 
-        `
-        Password must contain:
-        <br>
+Minimum 8 characters<br>
 
-        • Minimum 8 characters
+One uppercase letter<br>
 
-        <br>
+One lowercase letter<br>
 
-        • One uppercase letter
+One number<br>
 
-        <br>
+One special character
 
-        • One lowercase letter
-
-        <br>
-
-        • One number
-
-        <br>
-
-        • One special character (@,#,$,%,&)
-        `;
+`;
 
         passwordMessage.className =
-        "text-red-600 text-sm mt-2";
+            "text-red-600 text-sm mt-2";
 
     }
 
@@ -402,31 +425,31 @@ password.addEventListener("input", function(){
 // CONFIRM PASSWORD
 // ==========================================
 
-confirmPassword.addEventListener("input", function(){
+confirmPassword.addEventListener("input", function () {
 
-    if(confirmPassword.value === ""){
+    if (confirmPassword.value === "") {
 
         confirmMessage.textContent = "";
 
     }
 
-    else if(password.value === confirmPassword.value){
+    else if (password.value === confirmPassword.value) {
 
         confirmMessage.textContent =
-        "✓ Passwords Match";
+            "✓ Passwords Match";
 
         confirmMessage.className =
-        "text-green-600 text-sm mt-2";
+            "text-green-600 text-sm mt-2";
 
     }
 
-    else{
+    else {
 
         confirmMessage.textContent =
-        "✗ Passwords Do Not Match";
+            "✗ Passwords Do Not Match";
 
         confirmMessage.className =
-        "text-red-600 text-sm mt-2";
+            "text-red-600 text-sm mt-2";
 
     }
 
@@ -435,7 +458,7 @@ confirmPassword.addEventListener("input", function(){
 // FORM SUBMISSION
 // ==========================================
 
-donorForm.addEventListener("submit", function(event){
+donorForm.addEventListener("submit", function (event) {
 
     event.preventDefault();
 
@@ -446,9 +469,11 @@ donorForm.addEventListener("submit", function(event){
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const strongPassword =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
-    if(
+    // Empty Field Validation
+
+    if (
 
         donorName.value.trim() === "" ||
 
@@ -464,7 +489,7 @@ donorForm.addEventListener("submit", function(event){
 
         confirmPassword.value === ""
 
-    ){
+    ) {
 
         showError("Please fill in all fields.");
 
@@ -472,7 +497,9 @@ donorForm.addEventListener("submit", function(event){
 
     }
 
-    if(!namePattern.test(donorName.value)){
+    // Name Validation
+
+    if (!namePattern.test(donorName.value)) {
 
         showError("Name should contain only letters.");
 
@@ -480,7 +507,9 @@ donorForm.addEventListener("submit", function(event){
 
     }
 
-    if(!emailPattern.test(donorEmail.value)){
+    // Email Validation
+
+    if (!emailPattern.test(donorEmail.value)) {
 
         showError("Please enter a valid email.");
 
@@ -488,7 +517,9 @@ donorForm.addEventListener("submit", function(event){
 
     }
 
-    if(!phonePattern.test(donorPhone.value)){
+    // Phone Validation
+
+    if (!phonePattern.test(donorPhone.value)) {
 
         showError("Please enter a valid Bangladeshi phone number.");
 
@@ -496,17 +527,21 @@ donorForm.addEventListener("submit", function(event){
 
     }
 
-    if(!strongPassword.test(password.value)){
+    // Password Validation
+
+    if (!strongPassword.test(password.value)) {
 
         showError(
-        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
+            "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
         );
 
         return;
 
     }
 
-    if(password.value !== confirmPassword.value){
+    // Confirm Password
+
+    if (password.value !== confirmPassword.value) {
 
         showError("Passwords do not match.");
 
@@ -514,53 +549,90 @@ donorForm.addEventListener("submit", function(event){
 
     }
 
-    showSuccess("Registration Successful!");
+    // ==========================================
+    // SUCCESS PAGE
+    // ==========================================
 
-    donorForm.reset();
+    app.classList.add("hidden");
 
-    emailMessage.textContent = "";
+    successMessage.classList.remove("hidden");
 
-    passwordMessage.textContent = "";
+    successMessage.innerHTML = `
 
-    confirmMessage.textContent = "";
+    <div class="bg-white shadow-xl rounded-xl p-10 text-center">
 
-    phoneError.textContent = "";
+        <div class="text-7xl mb-5">
+
+            ✅
+
+        </div>
+
+        <h2 class="text-4xl font-bold text-green-600">
+
+            Registration Successful!
+
+        </h2>
+
+        <p class="text-gray-600 mt-5">
+
+            Thank you for registering as a voluntary blood donor.
+
+        </p>
+
+        <p class="text-gray-500 mt-2">
+
+            Your information has been verified successfully.
+
+        </p>
+
+        <a
+
+            href="dashboard.php"
+
+            class="inline-block mt-8 bg-red-700 hover:bg-red-800 text-white px-8 py-3 rounded-lg font-semibold transition">
+
+            Go to Dashboard
+
+        </a>
+
+    </div>
+
+    `;
 
 });
-
 // ==========================================
-// BLOOD DONATION STATISTICS
+// BLOOD BANK STATISTICS
 // ==========================================
 
 const statistics = [
 
     {
 
-        title:"Registered Donors",
+        title: "Registered Donors",
 
-        count:"540",
+        count: "540",
 
-        color:"text-red-600"
-
-    },
-
-    {
-
-        title:"Blood Requests",
-
-        count:"120",
-
-        color:"text-blue-600"
+        color: "text-red-600"
 
     },
 
     {
 
-        title:"Available Donors",
+        title: "Blood Requests",
 
-        count:"380",
+        count: "120",
 
-        color:"text-green-600"
+        color: "text-blue-600"
+
+    },
+
+    {
+
+        title: "Available Donors",
+
+        count: "380",
+
+        color: "text-green-600"
 
     }
 
@@ -576,15 +648,15 @@ statsContainer.className =
 "grid grid-cols-1 md:grid-cols-3 gap-6 mt-10";
 
 // ==========================================
-// REUSABLE COMPONENT
+// CREATE CARDS
 // ==========================================
 
-statistics.forEach(function(stat){
+statistics.forEach(function (stat) {
 
     const card = document.createElement("div");
 
     card.className =
-    "bg-white rounded-xl shadow-lg p-6 text-center";
+    "bg-white shadow-lg rounded-xl p-6 text-center hover:shadow-xl transition";
 
     card.innerHTML = `
 
@@ -607,7 +679,41 @@ statistics.forEach(function(stat){
 });
 
 // ==========================================
-// APPEND COMPONENT
+// APPEND TO PAGE
 // ==========================================
 
 app.appendChild(statsContainer);
+
+// ==========================================
+// IMPROVED ALERT FUNCTIONS
+// ==========================================
+
+function showToast(message, color = "red") {
+
+    const toast = document.createElement("div");
+
+    toast.className =
+        `fixed top-5 right-5 px-6 py-3 rounded-lg shadow-lg text-white font-semibold z-50
+        ${color === "green" ? "bg-green-600" : "bg-red-600"}
+        transition-all duration-300`;
+
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(function () {
+
+        toast.style.opacity = "0";
+
+        toast.style.transform = "translateY(-20px)";
+
+    }, 2500);
+
+    setTimeout(function () {
+
+        toast.remove();
+
+    }, 3000);
+
+}
+

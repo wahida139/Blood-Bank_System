@@ -8,19 +8,115 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Donor Registration</title>
+    <title>Blood Donor Registration</title>
 
-    <!-- Tailwind CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
-<body class="bg-red-50 min-h-screen">
+<body class="bg-red-50 min-h-screen flex flex-col">
 
-    <div id="app"
-         class="max-w-4xl mx-auto p-8">
+    <!-- Header -->
 
-    </div>
+    <header class="bg-red-700 shadow-lg">
+
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+
+            <div class="flex items-center space-x-3">
+
+                <span class="text-4xl">
+
+                    🩸
+
+                </span>
+
+                <div>
+
+                    <h1 class="text-3xl font-bold text-white">
+
+                        Blood Bank
+
+                    </h1>
+
+                    <p class="text-red-100 text-sm">
+
+                        Blood Donation Management System
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <a
+                href="login.php"
+                class="bg-white text-red-700 px-5 py-2 rounded-lg font-semibold hover:bg-red-100 transition">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- Main Content -->
+
+    <main class="flex-grow">
+
+        <div class="max-w-5xl mx-auto px-6 py-10">
+
+            <!-- Title -->
+
+            <div class="text-center mb-10">
+
+                <h2 class="text-4xl font-bold text-red-700">
+
+                    Become a Blood Donor
+
+                </h2>
+
+                <p class="text-gray-600 mt-3">
+
+                    Register as a voluntary blood donor and help save lives.
+
+                </p>
+
+            </div>
+
+            <!-- Success Message -->
+
+            <div
+                id="successMessage"
+                class="hidden">
+
+            </div>
+
+            <!-- Registration Form -->
+
+            <div id="app">
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="bg-red-700 text-white text-center py-5">
+
+        <p>
+
+            © 2026 Blood Bank Management System.
+            All Rights Reserved.
+
+        </p>
+
+    </footer>
+
+    <!-- JavaScript -->
 
     <script src="js/app.js"></script>
 
