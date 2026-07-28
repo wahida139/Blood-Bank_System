@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff0f1"/>
+      <stop offset="100%" stop-color="#ffe4e6"/>
+    </linearGradient>
+    <linearGradient id="dropGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e63946"/>
+      <stop offset="100%" stop-color="#900c3f"/>
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d6d"/>
+      <stop offset="100%" stop-color="#c9184a"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#900c3f" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="600" height="450" rx="24" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Medical Cross Background Patterns -->
+  <path d="M50 80 h20 v-20 h20 v20 h20 v20 h-20 v20 h-20 v-20 h-20 z" fill="#e63946" opacity="0.08"/>
+  <path d="M480 320 h16 v-16 h16 v16 h16 v16 h-16 v16 h-16 v-16 h-16 z" fill="#e63946" opacity="0.08"/>
+  <path d="M420 70 h12 v-12 h12 v12 h12 v12 h-12 v12 h-12 v-12 h-12 z" fill="#e63946" opacity="0.06"/>
+
+  <!-- Outer Pulse Rings -->
+  <circle cx="300" cy="225" r="160" fill="none" stroke="#e63946" stroke-width="2" stroke-dasharray="6 6" opacity="0.25"/>
+  <circle cx="300" cy="225" r="130" fill="none" stroke="#e63946" stroke-width="3" stroke-dasharray="8 8" opacity="0.35"/>
+
+  <!-- Main Blood Drop with Shadow -->
+  <g filter="url(#shadow)">
+    <path d="M300 90 C300 90 200 230 200 280 C200 335.2 244.8 380 300 380 C355.2 380 400 335.2 400 280 C400 230 300 90 300 90 Z" fill="url(#dropGrad)"/>
+  </g>
+
+  <!-- Drop Highlight -->
+  <path d="M260 220 C250 240 245 270 248 295 C242 285 240 260 252 230 C256 220 260 220 260 220 Z" fill="#ffffff" opacity="0.45"/>
+
+  <!-- Heart Icon inside Blood Drop -->
+  <path d="M300 290 C300 290 265 260 265 242.5 C265 232.5 273 225 283 225 C289 225 296 228 300 233 C304 228 311 225 317 225 C327 225 335 232.5 335 242.5 C335 260 300 290 300 290 Z" fill="#ffffff" opacity="0.95"/>
+
+  <!-- EKG Line Graphic Across Drop -->
+  <path d="M120 225 L210 225 L225 200 L240 250 L260 180 L280 260 L295 215 L310 235 L325 225 L480 225" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+
+  <!-- Floating Life Badges -->
+  <g filter="url(#shadow)">
+    <!-- Badge 1: Save Lives -->
+    <g transform="translate(90, 130)">
+      <rect width="130" height="44" rx="22" fill="#ffffff"/>
+      <circle cx="22" cy="22" r="14" fill="#e63946"/>
+      <text x="22" y="27" font-family="system-ui, sans-serif" font-weight="bold" font-size="14" fill="#ffffff" text-anchor="middle">♥</text>
+      <text x="75" y="27" font-family="system-ui, sans-serif" font-weight="bold" font-size="13" fill="#2b2d42" text-anchor="middle">Save Lives</text>
+    </g>
+
+    <!-- Badge 2: Volunteer Donors -->
+    <g transform="translate(380, 310)">
+      <rect width="145" height="44" rx="22" fill="#ffffff"/>
+      <circle cx="22" cy="22" r="14" fill="#38b000"/>
+      <text x="22" y="26" font-family="system-ui, sans-serif" font-weight="bold" font-size="14" fill="#ffffff" text-anchor="middle">✓</text>
+      <text x="82" y="27" font-family="system-ui, sans-serif" font-weight="bold" font-size="13" fill="#2b2d42" text-anchor="middle">Verified Donor</text>
+    </g>
+  </g>
+</svg>
