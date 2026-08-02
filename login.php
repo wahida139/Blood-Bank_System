@@ -1,27 +1,42 @@
 <?php session_start();
-error_reporting(0);
+error_reporting(E_ALL);
 include('includes/config.php');
+
 if(isset($_POST['login'])) 
-  {
-    $email=$_POST['email'];
-    $password=md5($_POST['password']);
-    $sql ="SELECT id FROM tblblooddonars WHERE EmailId=:email and Password=:password";
+{
+    // Sanitize input
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    // Fetch user by email to retrieve the hashed password
+    $sql ="SELECT id, Password FROM tblblooddonars WHERE EmailId=:email";
     $query=$dbh->prepare($sql);
     $query->bindParam(':email',$email,PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-    $query-> execute();
-    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    $query->execute();
+
     if($query->rowCount() > 0)
-{
-foreach ($results as $result) {
-$_SESSION['bbdmsdid']=$result->id;
-echo($_SESSION['bbdmsdid']);
-}
-$_SESSION['login']=$_POST['email'];
-echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-} else{
-echo "<script>alert('Invalid Details');</script>";
-}
+    {
+        $result=$query->fetch(PDO::FETCH_ASSOC);
+        $hash = $result['Password'] ?? '';
+        
+        // Verify password 
+        if (password_verify($password, $hash)) {
+            // Re-generate Session ID to protect against Session Fixation attacks
+            session_regenerate_id(true);
+
+            $_SESSION['bbdmsdid'] = $result['id'];
+            $_SESSION['login'] = $email;
+            $_SESSION['alogin'] = $email; // Allow access to dashboard.php
+            $_SESSION['login_time'] = time();
+            
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            echo "<script>alert('Invalid password.');</script>";
+        }
+    } else {
+        echo "<script>alert('Email not found in database: " . $email . "');</script>";
+    }
 }
 ?>
 
