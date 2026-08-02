@@ -1,15 +1,22 @@
 <?php
 session_start(); 
+
+// Unset all active in-memory session variables
 $_SESSION = array();
+
+// Request browser client to delete the session tracking cookie
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 60*60,
+    setcookie(session_name(), '', time() - 42000,
         $params["path"], $params["domain"],
         $params["secure"], $params["httponly"]
     );
 }
-unset($_SESSION['login']);
-session_destroy(); // destroy session
-header("location:index.php"); 
-?>
 
+// Destroy session file from server storage
+session_destroy(); 
+
+// Redirect user to login interface securely
+header("location:login.php"); 
+exit();
+?>
