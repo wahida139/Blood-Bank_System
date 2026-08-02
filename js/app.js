@@ -145,14 +145,14 @@ if (app) {
     // REAL-TIME EMAIL VALIDATION
     if (donorEmail) {
         donorEmail.addEventListener("input", function () {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailPattern = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
             if (emailPattern.test(donorEmail.value.trim())) {
                 emailMessage.textContent = "✓ Valid Email Address";
                 emailMessage.className = "text-green-600 text-sm mt-1 font-medium";
             } else if (donorEmail.value === "") {
                 emailMessage.textContent = "";
             } else {
-                emailMessage.textContent = "✗ Invalid Email Address";
+                emailMessage.textContent = "Invalid Gmail Address";
                 emailMessage.className = "text-red-600 text-sm mt-1 font-medium";
             }
         });
@@ -218,7 +218,7 @@ if (app) {
 
             const namePattern = /^[A-Za-z ]+$/;
             const phonePattern = /^01[3-9]\d{8}$/;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailPattern = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
             const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
             if (
@@ -240,7 +240,7 @@ if (app) {
             }
 
             if (!emailPattern.test(donorEmail.value.trim())) {
-                showToast("Please enter a valid email address.", "red");
+                showToast("Please enter a valid Gmail address ending with @gmail.com.", "red");
                 return;
             }
 
@@ -259,27 +259,55 @@ if (app) {
                 return;
             }
 
-            // SUCCESS FEEDBACK
-            app.classList.add("hidden");
-            if (successMessage) {
-                successMessage.classList.remove("hidden");
-                successMessage.innerHTML = `
-                <div class="bg-white shadow-2xl rounded-2xl p-10 text-center border border-green-100 max-w-xl mx-auto">
-                    <div class="text-6xl mb-4 text-green-500">✓</div>
-                    <h2 class="text-3xl font-extrabold text-green-600">Registration Successful!</h2>
-                    <p class="text-gray-600 mt-4">Thank you for registering as a voluntary blood donor.</p>
-                    <p class="text-gray-500 text-sm mt-1">Your profile has been saved successfully.</p>
-                    <div class="mt-8 flex justify-center gap-4">
-                        <a href="index.html" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-xl font-semibold transition">
-                            Back to Home
-                        </a>
-                        <a href="login.php" class="bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
-                            Go to Login
-                        </a>
-                    </div>
-                </div>
-                `;
-            }
+            // SEND DATA TO BACKEND
+            const payload = {
+                name: donorName.value.trim(),
+                email: donorEmail.value.trim(),
+                phone: donorPhone.value.trim(),
+                bloodGroup: bloodGroup.value,
+                location: donorLocation.value.trim(),
+                password: password.value
+            };
+
+            fetch('register_backend.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // SUCCESS FEEDBACK
+                    app.classList.add("hidden");
+                    if (successMessage) {
+                        successMessage.classList.remove("hidden");
+                        successMessage.innerHTML = `
+                        <div class="bg-white shadow-2xl rounded-2xl p-10 text-center border border-green-100 max-w-xl mx-auto">
+                            <div class="text-6xl mb-4 text-green-500">✓</div>
+                            <h2 class="text-3xl font-extrabold text-green-600">Registration Successful!</h2>
+                            <p class="text-gray-600 mt-4">Thank you for registering as a voluntary blood donor.</p>
+                            <p class="text-gray-500 text-sm mt-1">Your profile has been saved successfully.</p>
+                            <div class="mt-8 flex justify-center gap-4">
+                                <a href="index.html" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-xl font-semibold transition">
+                                    Back to Home
+                                </a>
+                                <a href="login.php" class="bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                                    Go to Login
+                                </a>
+                            </div>
+                        </div>
+                        `;
+                    }
+                } else {
+                    showToast(data.message || "Registration failed. Please try again.", "red");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast("An error occurred during registration. Please check your network.", "red");
+            });
         });
     }
 
