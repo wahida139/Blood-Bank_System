@@ -2,9 +2,19 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
+$timeout_duration = 300;
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $timeout_duration)) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php?msg=Session timed out due to inactivity");
+    exit();
+}
+$_SESSION['last_activity'] = time();
+
 if(strlen($_SESSION['alogin'])==0)
 	{	
-header('location:index.php');
+header('location:login.php');
 }
 else{
 	?>
@@ -22,29 +32,31 @@ else{
 	<title>BBDMS | Admin Dashboard</title>
 
 	<!-- Font awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Sandstone Bootstrap CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!-- Bootstrap Datatables -->
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-	<!-- Bootstrap social button library -->
-	<link rel="stylesheet" href="css/bootstrap-social.css">
-	<!-- Bootstrap select -->
-	<link rel="stylesheet" href="css/bootstrap-select.css">
-	<!-- Bootstrap file input -->
-	<link rel="stylesheet" href="css/fileinput.min.css">
-	<!-- Awesome Bootstrap checkbox -->
-	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<?php include('includes/header.php');?>
+<div class="brand clearfix" style="background: #e53935; padding: 10px 20px; color: white;">
+    <a href="dashboard.php" style="font-size: 20px; color: white; text-decoration: none;">Blood Bank & Donor Management System</a>
+    <span class="menu-btn"><i class="fa fa-bars"></i></span>
+    <ul class="ts-profile-nav" style="float: right; list-style: none;">
+        <li><a href="logout.php" style="color: white; text-decoration: none;"><i class="fa fa-sign-out"></i> Logout</a></li>
+    </ul>
+</div>
 
 	<div class="ts-main-content">
-<?php include('includes/leftbar.php');?>
-		<div class="content-wrapper">
+		<nav class="ts-sidebar" style="width: 250px; float: left; background: #2c3136; min-height: 100vh; padding-top: 20px;">
+			<ul class="ts-sidebar-menu" style="list-style: none; padding: 0;">
+				<li class="ts-label" style="color: #8c909a; padding: 10px 20px; font-weight: bold; text-transform: uppercase;">Main</li>
+				<li><a href="dashboard.php" style="color: #fff; padding: 10px 20px; display: block;"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li><a href="donor-list.php" style="color: #fff; padding: 10px 20px; display: block;"><i class="fa fa-users"></i> Donor List</a></li>
+			</ul>
+		</nav>
+		<div class="content-wrapper" style="margin-left: 250px; padding: 20px;">
 			<div class="container-fluid">
 
 				<div class="row">
@@ -60,11 +72,12 @@ else{
 											<div class="panel-body bk-primary text-light">
 												<div class="stat-panel text-center">
 <?php 
-$sql ="SELECT id from tblbloodgroup ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$bg=$query->rowCount();
+try {
+	$sql ="SELECT DISTINCT BloodGroup from tblblooddonars WHERE BloodGroup IS NOT NULL";
+	$query = $dbh -> prepare($sql);
+	$query->execute();
+	$bg=$query->rowCount();
+} catch (Exception $e) { $bg = 0; }
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($bg);?></div>
 													<div class="stat-panel-title text-uppercase">Listed Blood Groups</div>
@@ -78,14 +91,15 @@ $bg=$query->rowCount();
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
 												<?php 
-$sql1 ="SELECT id from tblblooddonars ";
-$query1 = $dbh -> prepare($sql1);;
-$query1->execute();
-$results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$regbd=$query1->rowCount();
+try {
+	$sql1 ="SELECT id from tblblooddonars ";
+	$query1 = $dbh -> prepare($sql1);
+	$query1->execute();
+	$regbd=$query1->rowCount();
+} catch (Exception $e) { $regbd = 0; }
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($regbd);?></div>
-													<div class="stat-panel-title text-uppercase">Registered Blood Group</div>
+													<div class="stat-panel-title text-uppercase">Registered Donors</div>
 												</div>
 											</div>
 											<a href="donor-list.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -96,14 +110,15 @@ $regbd=$query1->rowCount();
 											<div class="panel-body bk-info text-light">
 												<div class="stat-panel text-center">
 												<?php 
-$sql6 ="SELECT id from tblcontactusquery ";
-$query6 = $dbh -> prepare($sql6);;
-$query6->execute();
-$results6=$query6->fetchAll(PDO::FETCH_OBJ);
-$query=$query6->rowCount();
+try {
+	$sql6 ="SELECT record_id from tblbloodrecords ";
+	$query6 = $dbh -> prepare($sql6);
+	$query6->execute();
+	$query_count=$query6->rowCount();
+} catch (Exception $e) { $query_count = 0; }
 ?>
-													<div class="stat-panel-number h1 "><?php echo htmlentities($query);?></div>
-													<div class="stat-panel-title text-uppercase">Total Quries</div>
+													<div class="stat-panel-number h1 "><?php echo htmlentities($query_count);?></div>
+													<div class="stat-panel-title text-uppercase">Total Records</div>
 												</div>
 											</div>
 											<a href="manage-conactusquery.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -115,11 +130,12 @@ $query=$query6->rowCount();
 											<div class="panel-body bk-info text-light">
 												<div class="stat-panel text-center">
 												<?php 
-$sql6 ="SELECT ID  from tblbloodrequirer ";
-$query6 = $dbh -> prepare($sql6);;
-$query6->execute();
-$results6=$query6->fetchAll(PDO::FETCH_OBJ);
-$totalreuqests=$query6->rowCount();
+try {
+	$sql6 ="SELECT appointment_id from tblappointments ";
+	$query6 = $dbh -> prepare($sql6);
+	$query6->execute();
+	$totalreuqests=$query6->rowCount();
+} catch (Exception $e) { $totalreuqests = 0; }
 ?>
 													<div class="stat-panel-number h1 "><?php echo htmlentities($totalreuqests);?></div>
 													<div class="stat-panel-title text-uppercase">Total Blood Request Received</div>
